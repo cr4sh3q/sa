@@ -10,6 +10,8 @@
             text-align: center;
             margin: 50px;
             background-color: #fbe3e8;
+            position: relative;
+            overflow: hidden;
         }
         h1 {
             color: #d63384;
@@ -21,6 +23,8 @@
             border: none;
             cursor: pointer;
             border-radius: 10px;
+            position: absolute;
+            transition: 0.3s;
         }
         #yes {
             background-color: #28a745;
@@ -30,20 +34,49 @@
             background-color: #dc3545;
             color: white;
         }
+        .hearts {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: floatUp 2s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
     </style>
 </head>
 <body>
     <h1>Benimle çıkar mısın? ❤</h1>
-    <button id="yes" onclick="evet()">Evet</button>
-    <button id="no" onclick="hayir()">Hayır</button>
+    <button id="yes" onclick="evet()" style="top: 50%; left: 40%;">Evet</button>
+    <button id="no" onclick="rastgeleYerDegistir()" style="top: 50%; left: 55%;">Hayır</button>
 
     <script>
         function evet() {
-            alert("Biliyorum! ❤ Seni çok seviyorum!");
+            alert("Seni çok seviyorum! ❤");
+            for (let i = 0; i < 30; i++) {
+                let heart = document.createElement("div");
+                heart.className = "hearts";
+                heart.innerHTML = "❤";
+                heart.style.left = Math.random() * window.innerWidth + "px";
+                heart.style.top = Math.random() * window.innerHeight + "px";
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
         }
 
-        function hayir() {
-            document.getElementById("no").style.display = "none";
+        function rastgeleYerDegistir() {
+            let noButton = document.getElementById("no");
+            let yesButton = document.getElementById("yes");
+
+            let newX = Math.random() * (window.innerWidth - 100);
+            let newY = Math.random() * (window.innerHeight - 50);
+
+            noButton.style.left = newX + "px";
+            noButton.style.top = newY + "px";
         }
     </script>
 </body>
