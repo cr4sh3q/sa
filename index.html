@@ -8,18 +8,30 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 50px;
+            margin: 0;
+            padding: 0;
             background-color: #fbe3e8;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             overflow: hidden;
         }
         h1 {
             color: #d63384;
+            font-size: 32px;
+            margin-bottom: 50px;
+        }
+        #button-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
         }
         button {
             font-size: 20px;
-            padding: 10px 20px;
-            margin: 10px;
+            padding: 15px 25px;
             border: none;
             cursor: pointer;
             border-radius: 10px;
@@ -29,10 +41,25 @@
         #yes {
             background-color: #28a745;
             color: white;
+            left: 20%;
+            top: 50%;
         }
         #no {
             background-color: #dc3545;
             color: white;
+            left: 60%;
+            top: 50%;
+        }
+        #love-message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: #d63384;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
         .hearts {
             position: absolute;
@@ -48,12 +75,18 @@
 </head>
 <body>
     <h1>Benimle çıkar mısın? ❤</h1>
-    <button id="yes" onclick="evet()" style="top: 50%; left: 40%;">Evet</button>
-    <button id="no" onclick="rastgeleYerDegistir()" style="top: 50%; left: 55%;">Hayır</button>
+
+    <div id="button-container">
+        <button id="yes" onclick="evet()">Evet</button>
+        <button id="no" onclick="rastgeleYerDegistir()">Hayır</button>
+    </div>
+
+    <div id="love-message">Seni çok seviyorum! ❤</div>
 
     <script>
         function evet() {
-            alert("Seni çok seviyorum! ❤");
+            document.getElementById("love-message").style.display = "block";
+
             for (let i = 0; i < 30; i++) {
                 let heart = document.createElement("div");
                 heart.className = "hearts";
@@ -70,10 +103,12 @@
 
         function rastgeleYerDegistir() {
             let noButton = document.getElementById("no");
-            let yesButton = document.getElementById("yes");
 
-            let newX = Math.random() * (window.innerWidth - 100);
-            let newY = Math.random() * (window.innerHeight - 50);
+            let maxWidth = window.innerWidth - 100;
+            let maxHeight = window.innerHeight - 150;
+
+            let newX = Math.random() * maxWidth;
+            let newY = Math.random() * maxHeight;
 
             noButton.style.left = newX + "px";
             noButton.style.top = newY + "px";
